@@ -1,32 +1,25 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  postgresdb:
-    image: postgres
+  mongodb:
+    image: mongo:5.0.2
     restart: unless-stopped
     env_file: ./.env
     environment:
-      - POSTGRES_USER=$POSTGRESDB_USER
-      - POSTGRES_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
-      - POSTGRES_DB=$POSTGRESDB_DATABASE
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
     ports:
-      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
+      - $MONGODB_PORT:$MONGODB_PORT
     volumes:
-      - db:/var/lib/postgres
+      - db:/data/db
   app:
     depends_on:
-      - postgresdb
-    build: ./bezkoder-app
+      - mongodb
+    build: ./
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
-    environment:
-      - DB_HOST=postgresdb
-      - DB_USER=$POSTGRESDB_USER
-      - DB_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
-      - DB_NAME=$POSTGRESDB_DATABASE
-      - DB_PORT=$POSTGRESDB_DOCKER_PORT
+      - $NODE_PORT:$NODE_PORT
     stdin_open: true
     tty: true
 

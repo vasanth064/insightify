@@ -1,12 +1,20 @@
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 
+
+
 dotenv.config();
 
-const database = process.env.MONGODB_URI.replace(
-  '<password>',
-  process.env.MONGODB_PASSWORD
-);
+const {
+  MONGODB_USER,
+  MONGODB_PASSWORD,
+  MONGODB_HOST,
+  MONGODB_PORT,
+  MONGODB_NAME,
+} = process.env;
+
+const database = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}?authSource=admin`
+
 
 const connectDB = async () => {
   try {

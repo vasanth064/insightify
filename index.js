@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const port = process.env.PORT || 8000;
+const port = process.env.NODE_PORT || 8000;
 
 connectDB();
 
