@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "precommit": "pretty-quick --staged",
+    "prepare": "husky install .husky"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,8 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "express": "^4.18.2",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^7.1.5",
@@ -36,6 +40,9 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "husky": "^9.0.10",
+    "nodemon": "^3.0.3",
+    "prettier": "^3.2.4",
+    "pretty-quick": "^4.0.0"
   }
 }
