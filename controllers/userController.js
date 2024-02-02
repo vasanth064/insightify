@@ -49,14 +49,14 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 export const signup = catchAsync(async (req, res, err) => {
-  const body = {
+    const body = {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     role: req.body.role,
   };
-  if (req.file) body.photo = `${userProfilePath}/${req.file.filename}`;
+if (req.file) body.photo = `${userProfilePath}/${req.file.filename}`;
   const newUser = await User.create(body);
   createSendToken(newUser, 201, res);
 });

@@ -38,13 +38,15 @@ const handleProductionError = (err, res) => {
     });
   }
 };
-const handleDevelopmentError = (err, res) => {
-  res.status(err.statusCode).json({
-    status: err.status,
-    message: err.message,
-    stack: err.stack,
-    error: err,
-  });
+const handleDevelopmentError = async (err, req, res) => {
+  if (req.originalUrl.startsWith("/api")) {
+    return res.status(err.statuscode).json({
+      status: err.status,
+      error: err,
+      message: err.message,
+      stack: err.stack
+    });
+  }
 };
 
 const errorHandler = (err, req, res, next) => {
@@ -53,7 +55,7 @@ const errorHandler = (err, req, res, next) => {
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') {
-    handleDevelopmentError(err, res);
+    handleDevelopmentError(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
     if (err.name === 'CastError') error = handleCastErrorDB(error);
