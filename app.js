@@ -9,6 +9,7 @@ import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import userRouter from './routes/userRouter.js';
+import pollsRouter from './routes/pollsRouter.js';
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/polls', pollsRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server !`));

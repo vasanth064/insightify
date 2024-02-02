@@ -3,12 +3,11 @@ import validator from 'validator';
 import bycrypt from 'bcryptjs';
 import { randomBytes, createHash } from 'crypto';
 
-const userSchema = new mongoose.Schema({
+export const userSchema = new mongoose.Schema({
   name: { type: String, required: [true, 'Name is Required'] },
   email: {
     type: String,
     required: [true, 'Email is Required'],
-    unique: true,
     lowercase: true,
     validate: [validator.isEmail, 'Enter a Valid Email'],
   },

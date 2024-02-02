@@ -39,19 +39,19 @@ const handleProductionError = (err, res) => {
   }
 };
 const handleDevelopmentError = async (err, req, res) => {
-  if (req.originalUrl.startsWith("/api")) {
+  if (req.originalUrl.startsWith('/api')) {
     return res.status(err.statuscode).json({
       status: err.status,
       error: err,
       message: err.message,
-      stack: err.stack
+      stack: err.stack,
     });
   }
 };
 
 const errorHandler = (err, req, res, next) => {
   console.error(err.stack);
-  err.statusCode = err.statusCode || 500;
+  err.statuscode = err.statuscode || 500;
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') {
