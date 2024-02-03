@@ -16,7 +16,7 @@ pollsRouter
   .post('/structure', protectedRoute, pollStructure)
   .get('/structure', protectedRoute, getPollStructures)
   .get('/structure:id', protectedRoute, getPollStructure)
-  .delete('/structure:id', protectedRoute, deletePollStructure);
+  .delete('/structure', protectedRoute, deletePollStructure);
 
 pollsRouter
   .post('/response', protectedRoute, pollResponse)

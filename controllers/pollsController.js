@@ -45,10 +45,10 @@ export const getPollStructure = catchAsync(async (req, res, next) => {
 });
 
 export const deletePollStructure = catchAsync(async (req, res, next) => {
-  if (req.params.id === 'undefined')
+  if (req.body.id === 'undefined')
     return next(new AppError('Poll not found', 404));
 
-  const poll = await Poll.findByIdAndDelete(req.params.id);
+  const poll = await Poll.findByIdAndDelete(req.body.id);
 
   if (!poll) {
     return next(new AppError('Poll not found', 404));
