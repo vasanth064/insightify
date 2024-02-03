@@ -5,7 +5,8 @@ import catchAsync from '../helpers/catchAsync.js';
 export const createForm = catchAsync(async (req, res, err) => {
     req.user._id
     const {name, formJson, createdAt, closesAt } = req.body;
-    const form = await Form.create({name, createdBy: req.user._id, formJson, createdAt, closesAt});
+    const {formName, formJson, createdAt, closesAt } = req.body;
+    const form = await Form.create({name:formName, createdBy: req.user._id, formJson, createdAt, closesAt});
     res.status(201).json({
         status: 'success',
         data: {
