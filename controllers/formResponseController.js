@@ -17,7 +17,8 @@ export const saveFormResponse = catchAsync(async (req, res, err) => {
 });
 
 export const getFormResponse = catchAsync(async (req, res, err) => {
-  const response = await formResponse.findById(req.params.id);
+  console.log(req.params.id,"sqjedsaihnwesdiun");
+  const response = await formResponse.find({ formId: req.params.id });
   res.status(200).json({
     status: 'success',
     data: {

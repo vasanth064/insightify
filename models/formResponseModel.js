@@ -24,4 +24,4 @@ const formResponseSchema = new mongoose.Schema({
   },
 });
 
-export const formResponse = mongoose.model('FormResponse', formResponseSchema);
+export const formResponse = mongoose.model('formResponse', formResponseSchema);

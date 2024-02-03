@@ -30,13 +30,13 @@ app.use(
   })
 );
 
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many request from this IP, Please Try again later',
-});
+// const limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message: 'Too many request from this IP, Please Try again later',
+// });
 
-app.use('/api', limiter);
+// app.use('/api', limiter);
 
 app.use(monogoSanitize());
 

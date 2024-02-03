@@ -5,7 +5,7 @@ import AppError from '../helpers/appError.js';
 export const createForm = catchAsync(async (req, res, err) => {
   const { formName, formJson, createdAt, closesAt } = req.body;
   const form = await Form.create({
-    formName,
+    name:formName,
     createdBy: req.user._id,
     formJson,
     createdAt,
