@@ -6,7 +6,7 @@ import {
   getPollStructure,
   deletePollStructure,
   getPollResponses,
-  getPollResponse,
+  getPollResponse
 } from '../controllers/pollsController.js';
 import { protectedRoute } from '../controllers/userController.js';
 
