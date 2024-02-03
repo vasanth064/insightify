@@ -5,10 +5,6 @@ import catchAsync from '../helpers/catchAsync.js';
 
 const formRouter = express.Router();
 
-export const aa = catchAsync(async (req, res, err) => {
-    console.log('sdsdsd');
-    }
-);
 
 formRouter.post('/',protectedRoute, createForm);
 formRouter.get('/',protectedRoute, getUserForms);
