@@ -3,10 +3,9 @@ import catchAsync from '../helpers/catchAsync.js';
 import AppError from '../helpers/appError.js';
 
 export const createForm = catchAsync(async (req, res, err) => {
-  req.user._id;
-  const { name, formJson, createdAt, closesAt } = req.body;
+  const { formName, formJson, createdAt, closesAt } = req.body;
   const form = await Form.create({
-    name,
+    formName,
     createdBy: req.user._id,
     formJson,
     createdAt,
