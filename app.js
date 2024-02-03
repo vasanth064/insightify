@@ -11,6 +11,7 @@ import cors from 'cors';
 import userRouter from './routes/userRouter.js';
 import formRouter from './routes/formRouter.js';
 import pollsRouter from './routes/pollsRouter.js';
+import analyticsRouter from './routes/analyticsRouter.js';
 
 const app = express();
 
@@ -60,6 +61,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/polls', pollsRouter);
 app.use('/api/v1/forms', formRouter);
+app.use('/api/v1/analytics', analyticsRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server !`));
