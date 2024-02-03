@@ -24,6 +24,38 @@ app.use(
 );
 app.options('*', cors());
 
+
+//web-socket
+import http from 'http';
+import { Server } from 'socket.io';
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],transports: ['polling', 'websocket'],
+  }
+});
+
+
+    
+const chatSocket = io.of('/chat/pollresp');
+server.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+chatSocket.on('connection', (socket) => {
+  console.log('A user connected to the chat namespace');
+  console.log(socket.id);
+  socket.on('getResponse', (message) => {
+    console.log('Message received on chat namespace:', message);
+    socket.emit('receiveMessage', message);
+  });  
+});
+
+//web-socket
+
 app.use(
   helmet({
     crossOriginResourcePolicy: false,

@@ -42,9 +42,7 @@ export const getUserForms = catchAsync(async (req, res, err) => {
 export const deleteForm = catchAsync(async (req, res, next) => {
   if (req.body.id === 'undefined')
     return next(new AppError('Form not found', 404));
-  const form = await Form.findByIdAndDelete({
-    _id: req.body.id,
-  });
+  const form = await Form.findOneAndDelete(req.body.id);
   if (!form) {
     return next(new AppError('Form not found', 404));
   }

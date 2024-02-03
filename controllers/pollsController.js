@@ -32,8 +32,9 @@ export const getPollStructure = catchAsync(async (req, res, next) => {
   if (req.params.id === 'undefined')
     return next(new AppError('Poll not found', 404));
 
-  const poll = await Poll.findById(req.params.id);
+  const poll = await Poll.findOne({ _id: req.params.id });
 
+  console.log(poll, req.params.id);
   if (!poll) {
     return next(new AppError('Poll not found', 404));
   }
@@ -48,7 +49,7 @@ export const deletePollStructure = catchAsync(async (req, res, next) => {
   if (req.body.id === 'undefined')
     return next(new AppError('Poll not found', 404));
 
-  const poll = await Poll.findByIdAndDelete(req.body.id);
+  const poll = await Poll.findOneAndDelete(req.body.id);
 
   if (!poll) {
     return next(new AppError('Poll not found', 404));
@@ -90,6 +91,7 @@ export const getPollResponses = catchAsync(async (req, res, next) => {
 });
 
 export const getPollResponse = catchAsync(async (req, res, next) => {
+  console.log(req.params.id)
   if (req.params.id === 'undefined')
     return next(new AppError('Poll not found', 404));
 
@@ -98,9 +100,33 @@ export const getPollResponse = catchAsync(async (req, res, next) => {
   if (!poll) {
     return next(new AppError('Poll not found', 404));
   }
-
-  res.status(200).json({
-    status: 'success',
-    data: poll,
+  //  
+  // 
+  
+    res.status(200).json({
+      status: 'success',
+      data: poll,
+    });
   });
+  
+
+  // 
+  
+export const getSocketpollresponse = catchAsync(async (req, res, next) => {
+  const chatSocket = io.of('/chat/pollresp');
+
+  chatSocket.on('connection', (socket) => {
+    // console.log('A user connected to the chat namespace');
+    socket.emit('chatMessage', 'Welcome to the chat!')
+  
+    socket.on('chatMessage', (message) => {
+      console.log('Message received on chat namespace:', message);
+      socket.emit('receiveMessage', message);
+    });
+    socket.on('chatMessage', ({ pollId, message }) => {
+      io.to(pollId).emit('receiveMessage', message);
+      console.log(`Message received in room ${pollId}: ${message}`);
+    });
+  });
+  
 });
