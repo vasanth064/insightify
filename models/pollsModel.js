@@ -11,6 +11,10 @@ const pollSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'User is required'],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
   multiple: {
     type: Boolean,
     default: false,
